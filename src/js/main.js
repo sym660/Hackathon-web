@@ -11,13 +11,16 @@ $(function () {
         //$('#cream_loading').toggle();
         context.drawImage(video, 0, 0, 640, 480);
         var pic = convertCanvasToImage();
+        var b64 = pic.src.substring(22);
         $('#result_img').attr('src', pic.src);
         $('#result_img').show();
         video.src = null;
         $('#mask').hide();
         $('#show_video').hide();
         $('.camera-mask').hide();
-        getRes();
+        var size = $('#nose_size').val();
+        var data = {data:{img:b64, nose_size: size}};
+        getRes(data);
 
     });
     /*
@@ -31,9 +34,15 @@ $(function () {
 
 });
 
-function getRes(){
+function getRes(data){
     turnToside();
-
+    console.log(data);
+    $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8091", data, function (result) {
+        if (result.success) {
+            //$('#cream_loading').toggle();
+            //window.location.href = "/yourreenex?photo=" + result.photo;
+        }
+    });
 }
 function turnToside(){
 $('#face_scan_camera').css('float', 'left');
