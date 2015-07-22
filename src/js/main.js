@@ -9,20 +9,74 @@ $(function () {
 
        // $('.scan-area').show();
         //$('#cream_loading').toggle();
-        context.drawImage(video, 0, 0, 640, 480);
-        var pic = convertCanvasToImage();
-        var b64 = pic.src.substring(22);
+        canvas.width = 640;
+        canvas.height = 480;
+      context.drawImage(video, 0, 0, 640, 480);
+       var pic = convertCanvasToImage();
+       // var b64 = pic.src.substring(22);
         $('#result_img').attr('src', pic.src);
         $('#result_img').show();
         video.src = null;
         $('#mask').hide();
         $('#show_video').hide();
         $('.camera-mask').hide();
+
+
+    });
+    $('#action').click(function(){
+        var image = new Image();
+        image.src = document.getElementById("canvas").toDataURL("image/png");
+        var b64 = image.src.substring(22);
         var size = $('#nose_size').val();
         var data = {data:{img:b64, nose_size: size}};
         getRes(data);
 
     });
+
+    $("#upload_hide").uploadPreview({ Img: "result_img", Width: 200, Height: 200 });
+        //var btn = $("#Button1");
+    $("#upload").click(function(){
+
+            $('.camera-mask').hide();
+            $('#result_img').show();
+            $("#upload_hide").click();
+
+            //$('#canvas').src($("#result_img").src());
+
+    }
+    );
+        var btn = $("#uploads").uploadFile({
+            url: "",
+            fileSuffixs: ["jpg", "png", "gif", "txt"],
+            maximumFilesUpload: 1,//最大文件上传数
+            onComplete: function (msg) {
+                console.log(msg);
+               // $("#testdiv").append(msg + "<br/>");
+            },
+            onAllComplete: function () {
+                alert("全部上传完成");
+            },
+            isGetFileSize: true,//是否获取上传文件大小，设置此项为true时，将在onChosen回调中返回文件fileSize和获取大小时的错误提示文本errorText
+            onChosen: function (file, obj, fileSize, errorText) {
+                if (!errorText) {
+                    //$("#file_size").text(file + "文件大小为：" + fileSize + "KB");
+                } else {
+                    alert(errorText);
+                    return false;
+                }
+                return true;//返回false将取消当前选择的文件
+            },
+            perviewElementId: "result_img", //设置预览图片的元素id
+            perviewImgStyle: { width: '100px', height: '100px', border: '1px solid #ebebeb' }//设置预览图片的样式
+        });
+
+        //var upload = btn.data("uploadFileData");
+/*
+        $("#upload").click(function () {
+            upload.submitUpload();
+
+    });
+    */
     /*
     $.post("/Article/SavePhoto", { data: b63, name: filename }, function (result) {
         if (result.success) {
