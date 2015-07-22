@@ -1,0 +1,200 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="assets/css/xenon-core.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/xenon-components.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="echarts/echarts-all.js"></script>
+
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an
+    <strong>outdated</strong>
+    browser. Please
+    <a href="http://browsehappy.com/">upgrade your browser</a>
+    to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+
+<style>
+    .masthead {
+        background: #eee;
+        color: #fff;
+        text-align: center;
+        height: 100%;
+    }
+    .container {
+        width: 40%;
+        text-align: center;
+        background: #fff;
+        padding-top: 100px;
+        padding-left: 5%;
+        padding-right: 5%;
+        height: 100%;
+    }
+    video {
+
+       width: 100%;
+
+
+    }
+    .photoaera {
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        height: 100%;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    #show_video {
+
+        position: fixed;
+        width: 30%;
+        margin-left: 35%;
+        margin-top: 10%;
+        padding: 10px;
+        background: #FFF;
+        display: none;
+        z-index: 1000;
+    }
+    #res_list {
+        display: none;
+        margin: 1%;
+        position: relative;
+        width: 70%;
+        float: left;
+
+    }
+    #mask {
+
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        background: rgba(19, 102, 102, 0.34);
+        z-index: 500;
+        display: none;
+    }
+    .res_item:hover {
+        border: solid rgba(42, 199, 86, 0.38);
+        cursor: default;
+    }
+    .res_item {
+        height: 180px;
+    }
+    .item_left {
+        width: 20%;
+        background: aquamarine;
+        height: 100%;
+        font-size: 120px;
+        float: left;
+    }
+    .item_center {
+        width: 50%;
+        float: left;
+        height: 100%;
+    }
+    .item_right {
+        width: 30%;
+        height: 100%;
+        float: left;
+    }
+
+
+</style>
+<div id="show_video">
+<video id="video"  autoplay="autoplay"></video>
+    <button id="snap" class="btn btn-info btn-block">拍照</button>
+</div>
+<div id="mask"></div>
+<div id="main" class="masthead">
+    <div id="face_scan_camera" class="container">
+        <div class="">
+            <img class="camera-mask photoaera" src="img/none.jpg" style="height: 300px;width: 300px;"/>
+            <img  id="result_img" class="photoaera" style="display: none"/>
+        </div>
+
+        <div class="camera-area" style="z-index:102;top:560px;left:780px;">
+            <div class="scan-area" style="height:585px;width:580px;display:none; ">
+                <canvas id="canvas" width="640" height="480">
+                </canvas>
+            </div>
+
+        </div>
+        <button id="show_btn" class="btn btn-info btn-block">拍照</button>
+        <button id="upload" class="btn btn-info btn-block">上传</button>
+    </div>
+
+    <div id="res_list">
+
+            <div class="col-sm-12">
+                <div class="xe-widget xe-counter-block xe-counter-block-white  res_item">
+                        <div class="item_left">
+98
+                        </div>
+                        <div class="item_center">
+
+                        </div>
+                        <div id="chart" class="item_right">
+
+                        </div>
+
+                    </div>
+
+
+            </div>
+
+        <div class="col-sm-12">
+
+
+            <div class="xe-widget xe-counter-block xe-counter-block-white  res_item">
+                <div class="xe-upper">
+                    <div class="xe-icon">
+                        <i class="fa-life-ring"></i>
+                    </div>
+                    <div class="xe-label">
+                        <strong class="num">24/7</strong>
+                        <span>Live Support</span>
+                    </div>
+
+                </div>
+                <div class="xe-lower">
+                    <div class="border"></div>
+
+                    <span>Tickets Opened</span>
+                    <strong data-count="this" data-from="0" data-to="14215" data-duration="2">14,215</strong>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.0-beta.4/angular.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
+
+
+
