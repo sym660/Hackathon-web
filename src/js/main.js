@@ -28,7 +28,7 @@ $(function () {
         image.src = document.getElementById("canvas").toDataURL("image/png");
         var b64 = image.src.substring(22);
         var size = $('#nose_size').val();
-        var data = {data:{img:b64, nose_size: size}};
+        var data = {data:{FACE:b64, PD: size}};
         getRes(data);
 
     });
