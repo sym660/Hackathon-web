@@ -87,27 +87,114 @@ $(function () {
     */
 
 });
+/*
 
+ [
+ {"glass_name": "sample1",
+ "glass_id": 1,
+ "img": "iVBORw0K=",
+ "glass_description": "no description at all!!!!!!",
+  "scores":
+        {"total": 8.3, "description": "quiet good",
+        "details":
+            {"leg_tight_level": {
+                "score": 9,
+                "description": "very suitable"
+                 },
+             "material": {
+                "score": 3,
+                "description": "bad"
+                },
+             "glasses_position": {
+                "score": 6,
+                "description": "ok"
+                },
+             " weight": {
+                   "score": 9,
+                   "description": "very light"
+              }}}}]
+ */
 function getRes(data){
     turnToside();
     console.log(data);
     console.log((new Date()).valueOf());
+    var result ='[\
+    {"glass_name": "sample1",\
+        "glass_id": 1,\
+        "img": "iVBORw0K=",\
+        "glass_description": "no description at all!!!!!!",\
+        "scores":\
+        {"total": 8.3, "description": "quiet good",\
+            "details":\
+            {"leg_tight_level": {\
+                "score": 9,\
+                    "description": "very suitable"\
+            },\
+                "material": {\
+                "score": 3,\
+                    "description": "bad"\
+            },\
+                "glasses_position": {\
+                "score": 6,\
+                    "description": "ok"\
+            },\
+                " weight": {\
+                "score": 9,\
+                    "description": "very light"\
+            }}}}]';
     $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8091", data, function (result) {
-        if (result.success) {
-            //$('#cream_loading').toggle();
-            //window.location.href = "/yourreenex?photo=" + result.photo;
+        console.log(result);
+        var res = jQuery.parseJSON(result);
+        console.log(res);
+        $('#res_list').html('');
+        for(var item in res){
+            console.log(item);
+
+            var res_html = '';
+            res_html +='<div class="col-sm-12">\
+                <div class="xe-widget xe-counter-block xe-counter-block-white  res_item">\
+                <div class="item_left">';
+            res_html += res[item]['scores']['total'];
+            res_html +='</div>\
+                <div class="item_center">\
+                <img src="data:image/png;base64,';
+            res_html += res[item]['img'];
+            res_html +='" class="item_img">\
+            <div class="glass_name">';
+            res_html += res[item]['glass_name'];
+            res_html += '</div><hr/><div class="glass_desc">';
+            res_html += res[item]['glass_description'];
+            res_html += '</div>\
+                </div>\
+                <div id="chart_';
+            res_html += res[item]['glass_id'];
+            res_html += '" class="item_right">\
+                </div>\
+                </div>\
+                </div>';
+            $('#res_list').append(res_html);
+            showChart( res[item]['glass_name'],res[item]['glass_id'], res[item]['scores']['details']);
         }
     });
 }
 function turnToside(){
-$('#face_scan_camera').css('float', 'left');
-
+    $('#face_scan_camera').css('float', 'left');
     $('#face_scan_camera').css('width', '25%');
     $('#res_list').show();
-    showChart();
 }
 
-function showChart(){
+function showChart(name, id, scores){
+    var data = [];
+    var names = [];
+    for (item in scores){
+        data.push(scores[item]['score']);
+        names.push({text:item, max:10});
+    }
+    var cha = "chart_" + id;
+    console.log(cha);
+    console.log(scores);
+    console.log(id);
+    console.log(data);
     option = {
 
         tooltip : {
@@ -126,12 +213,7 @@ function showChart(){
         calculable : true,
         polar : [
             {
-                indicator : [
-                    {text : '尺寸', max  : 100},
-                    {text : '材质', max  : 100},
-                    {text : '重量', max  : 100},
-                    {text : '外观', max  : 100},
-                ],
+                indicator : names,
                 radius : 60
             }
         ],
@@ -148,8 +230,8 @@ function showChart(){
                 },
                 data : [
                     {
-                        value : [97, 42, 88, 94],
-                        name : '王牌1号眼镜'
+                        value : data,
+                        name : name
                     },
 
                 ]
@@ -157,7 +239,7 @@ function showChart(){
         ]
     };
 
-    var myChart = echarts.init(document.getElementById('chart'));
+    var myChart = echarts.init(document.getElementById(cha));
     myChart.setOption(option);
 }
 function startCamera() {
