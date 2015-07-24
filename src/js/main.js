@@ -147,11 +147,13 @@ function getRes(data){
         var res = jQuery.parseJSON(result);
         console.log(res);
         $('#res_list').html('');
+        var i = 1;
         for(var item in res){
             console.log(item);
-
             var res_html = '';
-            res_html +='<div class="col-sm-12">\
+            res_html +='<div class="col-sm-12 glass_id" id="glass_id_';
+            res_html += res[item]['glass_id'];
+            res_html += '">\
                 <div class="xe-widget xe-counter-block xe-counter-block-white  res_item">\
                 <div class="item_left">';
             res_html += res[item]['scores']['total'];
@@ -173,13 +175,50 @@ function getRes(data){
                 </div>\
                 </div>';
             $('#res_list').append(res_html);
+            $('#glass_id_' + res[item]['glass_id']).fadeIn(1000 * i);
+            i += 1;
+
+            $('#glass_id_'+res[item]['glass_id']).data('data',res[item]);
+        }
+
+        for(var item in res) {
             showChart( res[item]['glass_name'],res[item]['glass_id'], res[item]['scores']['details']);
         }
+
+        $('.glass_id').click(function () {
+            $(this).nextAll().toggle();
+            $(this).prevAll().toggle();
+            showDetail($(this).data('data'));
+            $('#res_detail').toggle();
+        });
     });
 }
+
+function showDetail(data) {
+    $('#res_detail').html('');
+    var details = data['scores']['details'];
+    for (item in details) {
+        var html = '<div id="" class="item"><img class="title" src="img/';
+        html += $.trim(item);
+        html += '.png" ><div class="content"><div class="head">';
+        html +=  $.trim(item);;
+        html += '</div><div class="body">';
+        html += details[item]['description'];
+        html += '</div><div class="footer">';
+        html += details[item]['score'];
+        html +='</div></div>';
+        $('#res_detail').append(html);
+    }
+    console.log(data);
+}
 function turnToside(){
-    $('#face_scan_camera').css('float', 'left');
-    $('#face_scan_camera').css('width', '25%');
+   // $('#face_scan_camera').css('float', 'left');
+    $('#face_scan_camera').animate({
+        'margin-left':0,
+        'left':0,
+        'width':'25%',
+    },1500)
+    //$('#face_scan_camera').css('width', '25%');
     $('#res_list').show();
 }
 

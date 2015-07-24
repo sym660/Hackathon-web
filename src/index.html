@@ -39,6 +39,8 @@
         height: 100%;
     }
     .container {
+        margin-left: 30%;
+        float: left;
         width: 40%;
         text-align: center;
         background: #fff;
@@ -89,10 +91,12 @@
     .res_item:hover {
         border: solid rgba(42, 199, 86, 0.38);
         cursor: default;
+
     }
     .res_item {
         height: 180px;
         box-shadow: #666 0px 0px 10px;
+
     }
     .item_left {
         width: 20%;
@@ -132,6 +136,9 @@
         color: black;
         padding-left: 1%;
     }
+    .glass_id {
+        display: none;
+    }
 
     .glass_desc {
         float: left;
@@ -145,6 +152,64 @@
 
     #nose_size {
         margin-bottom: 10px;
+    }
+    .res_detail {
+        box-shadow: #666 0px 0px 10px;
+        float: left;
+        min-height: 400px;
+        width: 68%;
+        background: #fff;
+        margin-left: 2%;
+        display: none;
+    }
+    .res_detail .item {
+        height: 400px;
+        float: left;
+        width: 22.5%;
+        margin-left: 2%;
+        /*box-shadow: #666 0px 0px 10px;*/
+    }
+    .res_detail .item .title {
+        position: absolute;
+        /* background: aquamarine; */
+        height: 60px;
+        margin-left: -7.5%;
+        /* left: 28.5%; */
+        /* width: 9.3%; */
+        /* margin-left: 3%; */
+        /* left: 5%; */
+        margin-top: 20px;
+    }
+    .res_detail .item .content {
+        height: 340px;
+        width: 15.3%;
+        /* background: rgb(13, 211, 84); */
+        box-shadow: #666 0px 0px 10px;
+        position: absolute;
+        margin-top: 60px;
+    }
+
+    .res_detail .item .content .head {
+        color: #000;
+        font-size: 25px;
+        margin-top: 20px;
+    }
+    .res_detail .item .content .body{
+        float: left;
+    /* width: 45%; */
+        font-size: 18px;
+        word-break: break-all;
+        word-wrap: break-word;
+        color: rgb(189, 189, 189);
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .res_detail .item .content .footer{
+        color: rgb(153, 65, 213);
+        position: absolute;
+        bottom: 0;
+        font-size: 80px;
+        left: 40%;
     }
 
 
@@ -177,7 +242,8 @@
 
     <div id="res_list">
 
-            <div class="col-sm-12">
+        <!--
+        <div class="col-sm-12">
                 <div class="xe-widget xe-counter-block xe-counter-block-white  res_item">
                         <div class="item_left">
 98
@@ -193,8 +259,10 @@
                     </div>
             </div>
 
-        </div>
+        </div> -->
 
+    </div>
+    <div id="res_detail" class="res_detail">
     </div>
 
 </div>
