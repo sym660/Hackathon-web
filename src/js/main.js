@@ -91,6 +91,7 @@ $(function () {
 function getRes(data){
     turnToside();
     console.log(data);
+    console.log((new Date()).valueOf());
     $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8091", data, function (result) {
         if (result.success) {
             //$('#cream_loading').toggle();
