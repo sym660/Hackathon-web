@@ -186,10 +186,10 @@ function getRes(data){
         }
 
         $('.glass_id').click(function () {
-            $(this).nextAll().toggle();
-            $(this).prevAll().toggle();
+            $(this).prevAll().slideToggle(500);
+            $(this).nextAll().slideToggle(500);
+            $('#res_detail').slideToggle(1000);
             showDetail($(this).data('data'));
-            $('#res_detail').toggle();
         });
     });
 }
@@ -197,8 +197,9 @@ function getRes(data){
 function showDetail(data) {
     $('#res_detail').html('');
     var details = data['scores']['details'];
+    var i=3;
     for (item in details) {
-        var html = '<div id="" class="item"><img class="title" src="img/';
+        var html = '<div id="detail_'+$.trim(item)+'" class="item"><img class="title" src="img/';
         html += $.trim(item);
         html += '.png" ><div class="content"><div class="head">';
         html +=  $.trim(item);;
@@ -208,6 +209,8 @@ function showDetail(data) {
         html += details[item]['score'];
         html +='</div></div>';
         $('#res_detail').append(html);
+        $('#detail_' + $.trim(item)).fadeIn(500 * i);
+        i += 1;
     }
     console.log(data);
 }
@@ -220,6 +223,7 @@ function turnToside(){
     },1500)
     //$('#face_scan_camera').css('width', '25%');
     $('#res_list').show();
+    $('#res_detail').hide();
 }
 
 function showChart(name, id, scores){
