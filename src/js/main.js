@@ -5,6 +5,10 @@ $(function () {
         context = canvas.getContext("2d"),
         video = document.getElementById("video");
 
+    $('#dialog').click(function(){
+        $(this).slideUp('slow');
+        $('#mask').fadeOut('slow');
+    });
     $('#snap').click(function () {
 
        // $('.scan-area').show();
@@ -114,6 +118,11 @@ $(function () {
                    "description": "very light"
               }}}}]
  */
+function showErrDialog(msg) {
+    $('#mask').show();
+    $('#dialog').show();
+    $('#dialog').html(msg);
+}
 function getRes(data){
     turnToside();
     console.log(data);
@@ -150,11 +159,17 @@ function getRes(data){
                 "score": 9,\
                     "description": "very light"\
             }}}}]';
+    showErrDialog('face detection fail!');
     $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
         console.log(result);
         var res = jQuery.parseJSON(result);
         console.log(res);
         $('#res_list').html('');
+        if (res['error'] == 'fail'){
+            showErrDialog(res['msg']);
+        }else {
+            return;
+        }
         var i = 1;
         for(var item in res){
             console.log(item);
