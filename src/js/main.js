@@ -138,11 +138,19 @@ function getRes(data){
                 "score": 6,\
                     "description": "ok"\
             },\
+                    "nose_pad": {\
+                "score": 6,\
+                    "description": "ok"\
+            },\
+                    "leg_length": {\
+                "score": 6,\
+                    "description": "ok"\
+            },\
                 " weight": {\
                 "score": 9,\
                     "description": "very light"\
             }}}}]';
-    $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
+    //$.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
         console.log(result);
         var res = jQuery.parseJSON(result);
         console.log(res);
@@ -191,7 +199,7 @@ function getRes(data){
             $('#res_detail').slideToggle(1000);
             showDetail($(this).data('data'));
         });
-    });
+    //});
 }
 
 function showDetail(data) {
