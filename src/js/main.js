@@ -124,7 +124,7 @@ function showErrDialog(msg) {
     $('#dialog').html(msg);
 }
 function getRes(data){
-    turnToside();
+
     console.log(data);
     console.log((new Date()).valueOf());
     var result ='[\
@@ -159,7 +159,7 @@ function getRes(data){
                 "score": 9,\
                     "description": "very light"\
             }}}}]';
-    showErrDialog('face detection fail!');
+    //showErrDialog('face detection fail!');
     $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
         console.log(result);
         var res = jQuery.parseJSON(result);
@@ -167,9 +167,9 @@ function getRes(data){
         $('#res_list').html('');
         if (res['error'] == 'fail'){
             showErrDialog(res['msg']);
-        }else {
             return;
         }
+        turnToside();
         var i = 1;
         for(var item in res){
             console.log(item);
