@@ -126,7 +126,7 @@ function getRes(data){
         "scores":\
         {"total": 8.3, "description": "quiet good",\
             "details":\
-            {"leg_tight_level": {\
+            {"pressure_rating": {\
                 "score": 9,\
                     "description": "very suitable"\
             },\
@@ -134,7 +134,7 @@ function getRes(data){
                 "score": 3,\
                     "description": "bad"\
             },\
-                "glasses_position": {\
+                "position": {\
                 "score": 6,\
                     "description": "ok"\
             },\
@@ -142,7 +142,7 @@ function getRes(data){
                 "score": 9,\
                     "description": "very light"\
             }}}}]';
-    $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8091", data, function (result) {
+    $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
         console.log(result);
         var res = jQuery.parseJSON(result);
         console.log(res);
@@ -156,7 +156,7 @@ function getRes(data){
             res_html += '">\
                 <div class="xe-widget xe-counter-block xe-counter-block-white  res_item">\
                 <div class="item_left">';
-            res_html += res[item]['scores']['total'];
+            res_html += res[item]['scores']['total'].toFixed(2);
             res_html +='</div>\
                 <div class="item_center">\
                 <img src="data:image/png;base64,';
