@@ -150,7 +150,7 @@ function getRes(data){
                 "score": 9,\
                     "description": "very light"\
             }}}}]';
-    //$.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
+    $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
         console.log(result);
         var res = jQuery.parseJSON(result);
         console.log(res);
@@ -196,10 +196,11 @@ function getRes(data){
         $('.glass_id').click(function () {
             $(this).prevAll().slideToggle(500);
             $(this).nextAll().slideToggle(500);
-            $('#res_detail').slideToggle(1000);
+
             showDetail($(this).data('data'));
+            $('#res_detail').toggle(1000);
         });
-    //});
+    });
 }
 
 function showDetail(data) {
@@ -217,7 +218,7 @@ function showDetail(data) {
         html += details[item]['score'];
         html +='</div></div>';
         $('#res_detail').append(html);
-        $('#detail_' + $.trim(item)).fadeIn(500 * i);
+        //$('#detail_' + $.trim(item)).show();
         i += 1;
     }
     console.log(data);
