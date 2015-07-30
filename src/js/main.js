@@ -1,6 +1,34 @@
 var sel, fr,video;
+var browser={
+    versions:function(){
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+            iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+            weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+            qq: u.match(/\sQQ/i) == " qq" //是否QQ
+        };
+    }(),
+    language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+
 $(function () {
+    //判断是否IE内核
+    //if(browser.versions.trident){ alert("is IE"); }
+//判断是否webKit内核
+    //if(browser.versions.webKit){ alert("is webKit"); }
+//判断是否移动端
+    //if(browser.versions.mobile||browser.versions.android||browser.versions.ios){ alert("移动端"); }
     $('#show_btn').click(startCamera);
+
     var canvas = document.getElementById("canvas"),
         context = canvas.getContext("2d"),
         video = document.getElementById("video");
@@ -121,7 +149,7 @@ $(function () {
 function showErrDialog(msg) {
     $('#mask').show();
     $('#dialog').show();
-    $('#dialog').html(msg);
+    $('#dialog-text').html(msg);
 }
 function getRes(data){
 
@@ -162,15 +190,16 @@ function getRes(data){
     //showErrDialog('face detection fail!');
     $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
         console.log(result);
-        var res = jQuery.parseJSON(result);
-        console.log(res);
+        var ress = jQuery.parseJSON(result);
+        console.log(ress);
         $('#res_list').html('');
-        if (res['error'] == 'fail'){
-            showErrDialog(res['msg']);
+        if (ress['error'] == 'fail'){
+            showErrDialog(ress['msg']);
             return;
         }
         turnToside();
         var i = 1;
+        var res = ress['msg'];
         for(var item in res){
             console.log(item);
             var res_html = '';
@@ -208,6 +237,8 @@ function getRes(data){
             showChart( res[item]['glass_name'],res[item]['glass_id'], res[item]['scores']['details']);
         }
 
+        showPoints(ress['points']);
+
         $('.glass_id').click(function () {
             $(this).prevAll().slideToggle(500);
             $(this).nextAll().slideToggle(500);
@@ -218,6 +249,25 @@ function getRes(data){
     });
 }
 
+function showPoints(points){
+    var canvas = document.getElementById("canvas"),
+        context = canvas.getContext("2d");
+    context.fillStyle='rgb(255,0,0)';
+    var h = $('#canvas').height();
+    var w = $('#canvas').width();
+    console.log(h);
+    console.log(w);
+    for (item in points) {
+        var p = points[item];
+        console.log(p['x']);
+        //context.fillRect(p['x']*w/100, p['y']*y/100, 5, 5);
+        context.fillRect(p['x']*w/100, p['y']*h/100, 5, 5);
+    }
+    $('#canvas').css("max-width",'200px');
+    $('#canvas').css("max-height",'200px');
+   // $("#canvas").show();
+
+}
 function showDetail(data) {
     $('#res_detail').html('');
     var details = data['scores']['details'];
@@ -258,10 +308,10 @@ function showChart(name, id, scores){
         names.push({text:item, max:10});
     }
     var cha = "chart_" + id;
-    console.log(cha);
-    console.log(scores);
-    console.log(id);
-    console.log(data);
+    //console.log(cha);
+    //console.log(scores);
+    //console.log(id);
+    //console.log(data);
     option = {
 
         tooltip : {

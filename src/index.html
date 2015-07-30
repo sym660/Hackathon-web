@@ -58,8 +58,8 @@
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
-        height: 100%;
-        width: 100%;
+        max-width: 200px;
+        max-height: 300px;
         margin-bottom: 20px;
     }
     #show_video {
@@ -221,15 +221,39 @@
         /* float: left; */
         width: 50%;
         position: fixed;
-        background: #fff;
+
         margin-left: 25%;
         margin-top: 10%;
         z-index: 2000;
-        box-shadow: #666 0px 0px 10px;
+        /* box-shadow: #666 0px 0px 10px; */
         display: none;
         text-align: center;
         font-size: 40px;
-        padding-top: 8%;
+        /* padding-top: 8%; */
+
+    }
+
+    .dialog_title {
+        height: 40%;
+        /* position: static; */
+        position: absolute;
+        width: 80%;
+        z-index: 600;
+        left: 10%;
+    }
+
+    #dialog-text {
+        background: #fff;
+        box-shadow: #666 0px 0px 10px;
+        height: 80%;
+        padding-top: 15%;
+        position: absolute;
+        width: 100%;
+        margin-top: 10%;
+    }
+
+    #canvas {
+       display: none;
 
     }
 
@@ -239,8 +263,15 @@
 <video id="video"  autoplay="autoplay"></video>
     <button id="snap" class="btn btn-info btn-block">拍照</button>
 </div>
+<div class="camera-area">
+    <div class="scan-area" style="">
+        <canvas id="canvas" width="640" height="480">
+        </canvas>
+    </div>
+</div>
+
 <div id="mask"></div>
-<div id="dialog" class="dialog"></div>
+<div id="dialog" class="dialog"><img class="dialog_title" src="img/error.png"></img><div id="dialog-text"></div></div>
 <div id="main" class="masthead">
     <div id="face_scan_camera" class="container">
         <div class="">
@@ -249,12 +280,7 @@
             <input id="upload_hide" type="file" value="上传" style="display: none"/>
         </div>
 
-        <div class="camera-area" style="z-index:102;top:560px;left:780px;">
-            <div class="scan-area" style="height:585px;width:580px;display:none; ">
-                <canvas id="canvas" width="640" height="480">
-                </canvas>
-            </div>
-        </div>
+
 
         <input type="text" id="nose_size" class="form-control" placeholder="输入瞳距(mm)">
         <button id="show_btn" class="btn btn-info btn-block">拍照</button>
