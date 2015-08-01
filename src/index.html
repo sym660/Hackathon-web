@@ -45,7 +45,7 @@
         width: 40%;
         text-align: center;
         background: #fff;
-        padding-top: 100px;
+        padding-top: 5%;
         padding-left: 5%;
         padding-right: 5%;
         height: 100%;
@@ -58,7 +58,7 @@
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
-        max-width: 200px;
+        max-width: 60%;
         max-height: 300px;
         margin-bottom: 20px;
     }
@@ -78,6 +78,7 @@
         position: relative;
         width: 70%;
         float: left;
+        margin-left: 26%;
 
     }
     #mask {
@@ -163,6 +164,7 @@
         background: #fff;
         margin-left: 2%;
         display: none;
+        margin-left: 27%;
     }
     .res_detail .item {
         height: 340px;
@@ -252,11 +254,32 @@
         margin-top: 10%;
     }
 
-    #canvas {
-       display: none;
-
+    .camera-area {
+        position: fixed;
+        /* margin-top: 10%; */
+        margin-left: 25%;
+        height: 100%;
+        width: 100%;
+        background: aqua;
+        text-align: center;
+        z-index: 800;
+        display: none;
     }
 
+    .camera-area .scan-area {
+        margin-top: 10%;
+        max-height: 80%;
+        /* max-width: 80%; */
+        /* border: aquamarine; */
+        /* width: inherit; */
+        /* background: aliceblue; */
+        filter: blur(5px);
+      /*  -webkit-filter: blur(5px);*/
+    }
+
+    .scan-area canvas{
+
+    }
 
 </style>
 <div id="show_video">
@@ -271,11 +294,11 @@
 </div>
 
 <div id="mask"></div>
-<div id="dialog" class="dialog"><img class="dialog_title" src="img/error.png"></img><div id="dialog-text"></div></div>
+<div id="dialog" class="dialog"><img class="dialog_title" src="img/error.png"/><div id="dialog-text"></div></div>
 <div id="main" class="masthead">
     <div id="face_scan_camera" class="container">
         <div class="">
-            <img class="camera-mask photoaera" src="img/face.jpg" style="max-height: 200px;max-width: 200px;"/>
+            <img class="camera-mask photoaera" src="img/face.jpg" />
             <div><img  id="result_img" class="photoaera" style="display: none"/></div>
             <input id="upload_hide" type="file" value="上传" style="display: none"/>
         </div>
@@ -316,14 +339,14 @@
 </div>
 
 
-
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="assets/js/jquery-1.11.1.min.js"></script>
+<!--<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://apps.bdimg.com/libs/angular.js/1.4.0-beta.4/angular.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
-<script src="js/file_uploader.js"></script>
+--><script src="js/file_uploader.js"></script>
 <script src="js/img_preview.js"></script>
 <script src="js/plugins.js"></script>
-
+<script src="js/res.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

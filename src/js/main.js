@@ -188,7 +188,10 @@ function getRes(data){
                     "description": "very light"\
             }}}}]';
     //showErrDialog('face detection fail!');
+    //mock
+    //result = mack_get_res();
     $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
+
         console.log(result);
         var ress = jQuery.parseJSON(result);
         console.log(ress);
@@ -250,24 +253,98 @@ function getRes(data){
 }
 
 function showPoints(points){
+    //$(".camera-area").show();
+
+   // return;
     var canvas = document.getElementById("canvas"),
         context = canvas.getContext("2d");
     context.fillStyle='rgb(255,0,0)';
+
+    var start = {
+        x:24,y:45
+    }
+    var end = {
+        x:80,y:55
+    }
+    //drawDisapearLine(context,start,end,'bule',30);
+
+   // return;
     var h = $('#canvas').height();
     var w = $('#canvas').width();
     console.log(h);
     console.log(w);
+    console.log(points);
+
+
+    var start = null;
+    var end = null;
     for (item in points) {
         var p = points[item];
-        console.log(p['x']);
+        if(item == 'contour_left1' || item == 'contour_right1'){
+            context.fillRect(p['x']*w/100, p['y']*h/100, 5, 5);
+        }
+        var t = {};
+        t.x = p.x*w/100;
+        t.y = p.y * w/100;
+        end = t;
+        if (start != null) {
+            drawDisapearLine(context,start,end,'bule',30);
+            //sleep(5000);
+        }
+        start = t;
+       // console.log(p['x']);
         //context.fillRect(p['x']*w/100, p['y']*y/100, 5, 5);
-        context.fillRect(p['x']*w/100, p['y']*h/100, 5, 5);
+      //  context.fillRect(p['x']*w/100, p['y']*h/100, 2, 2);
     }
-    $('#canvas').css("max-width",'200px');
-    $('#canvas').css("max-height",'200px');
-   // $("#canvas").show();
+    //$('#canvas').css("max-width",'200px');
+    //$('#canvas').css("max-height",'200px');
+    //$("#canvas").show();
 
 }
+
+function drawDisapearLine(ctx, start,end,color,time){
+    var ani = null;
+    ani && clearTimeout(ani);
+    ctx.save();
+
+    var t = 0,
+       // b = 0,
+        c = Math.max(end.x-start.x,end.y-start.y),
+        //d = 50;
+        s = 50;
+        w = end.x-start.x,
+        h = end.y-start.y;
+    LineAnim();
+    function LineAnim(){
+        if (t>s){
+            clearTimeout(ani);
+            ani = null;
+            ctx.restore();
+        }else {
+            var x = start.x + w/s,
+                y = start.y + h/s;
+            ctx.beginPath();
+    //        ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.moveTo(start.x,start.y);
+            ctx.lineTo(x,y);
+            ctx.closePath();
+            ctx.stroke();
+            start.x = x;
+            start.y = y;
+            t++;
+            ani = setTimeout(arguments.callee, 100);
+        }
+    }
+    /*
+    ctx.strokeStyle=color;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(start.x,start.y);
+    ctx.lineTo(end.x,end.y);
+    ctx.stroke();
+    */
+}
+
 function showDetail(data) {
     $('#res_detail').html('');
     var details = data['scores']['details'];
@@ -295,7 +372,9 @@ function turnToside(){
         'left':0,
         'width':'25%',
     },1500)
-    //$('#face_scan_camera').css('width', '25%');
+
+    $('#face_scan_camera').css('position', 'fixed');
+
     $('#res_list').show();
     $('#res_detail').hide();
 }
