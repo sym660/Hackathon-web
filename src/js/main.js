@@ -357,7 +357,7 @@ function showDetail(data) {
         html += '</div><div class="body">';
         html += details[item]['description'];
         html += '</div><div class="footer">';
-        html += details[item]['score'];
+        html += details[item]['score'].toFixed(1);
         html +='</div></div>';
         $('#res_detail').append(html);
         //$('#detail_' + $.trim(item)).show();
