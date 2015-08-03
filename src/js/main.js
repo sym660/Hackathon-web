@@ -295,12 +295,12 @@ function showPoints(points){
         var p = points[item];
         var x = p['x']*w/100;
         var y =  p['y']*h/100;
-        if(item == 'contour_left1' || item == 'contour_right1'||item =='nose_contour_left1'||item=='nose_contour_right1'
-        || item =='contour_right5'|| item=='contour_left5' || item =='contour_chin'||item=='nose_tip'){
+        if(item == 'contour_left1' || item == 'contour_right1'||item =='nose_contour_left1'||item=='nose_contour_right1'||item=='mouth_left_corner'||item=='mouth_right_corner'
+        || item =='contour_right5'|| item=='contour_left5' || item =='contour_right3'|| item=='contour_left3' || item =='contour_right7'|| item=='contour_left7' || item =='contour_chin'||item=='nose_tip' || item=='left_eye_pupil' ||item =='right_eye_pupil'){
             //context.fillRect(p['x']*w/100, p['y']*h/100, 5, 5);
             $('#canvas_mask').append('<div></div>');
-            $('#canvas_mask').find('div:last-child').css('left',x-10);
-            $('#canvas_mask').find('div:last-child').css('top',y-10);
+            $('#canvas_mask').find('div:last-child').css('left',x-5);
+            $('#canvas_mask').find('div:last-child').css('top',y-5);
         }
         /*
         var t = {};
