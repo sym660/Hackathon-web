@@ -28,6 +28,16 @@ $(function () {
 //判断是否移动端
     //if(browser.versions.mobile||browser.versions.android||browser.versions.ios){ alert("移动端"); }
     $('#show_btn').click(startCamera);
+    $('.camera-area').click(function(){
+        $(this).hide();
+        $('#mask').hide();
+        turnToside();
+    });
+    $('#result_img').click(function(){
+        $('.camera-area').show();
+        $('#mask').show();
+
+    });
 
     var canvas = document.getElementById("canvas"),
         context = canvas.getContext("2d"),
@@ -189,7 +199,7 @@ function getRes(data){
             }}}}]';
     //showErrDialog('face detection fail!');
     //mock
-    //result = mack_get_res();
+   // result = mack_get_res();
     $.post("http://st01-yf-pf-dutu-r65-03-006.st01.baidu.com:8092", data, function (result) {
 
         console.log(result);
@@ -253,7 +263,8 @@ function getRes(data){
 }
 
 function showPoints(points){
-    //$(".camera-area").show();
+    $(".camera-area").show();
+    $('#mask').show();
 
    // return;
     var canvas = document.getElementById("canvas"),
@@ -271,6 +282,8 @@ function showPoints(points){
    // return;
     var h = $('#canvas').height();
     var w = $('#canvas').width();
+    $('.canvas_mask').css('height',h);
+    $('.canvas_mask').css('width',w);
     console.log(h);
     console.log(w);
     console.log(points);
@@ -280,9 +293,16 @@ function showPoints(points){
     var end = null;
     for (item in points) {
         var p = points[item];
-        if(item == 'contour_left1' || item == 'contour_right1'){
-            context.fillRect(p['x']*w/100, p['y']*h/100, 5, 5);
+        var x = p['x']*w/100;
+        var y =  p['y']*h/100;
+        if(item == 'contour_left1' || item == 'contour_right1'||item =='nose_contour_left1'||item=='nose_contour_right1'
+        || item =='contour_right5'|| item=='contour_left5' || item =='contour_chin'||item=='nose_tip'){
+            //context.fillRect(p['x']*w/100, p['y']*h/100, 5, 5);
+            $('#canvas_mask').append('<div></div>');
+            $('#canvas_mask').find('div:last-child').css('left',x-10);
+            $('#canvas_mask').find('div:last-child').css('top',y-10);
         }
+        /*
         var t = {};
         t.x = p.x*w/100;
         t.y = p.y * w/100;
@@ -294,11 +314,12 @@ function showPoints(points){
         start = t;
        // console.log(p['x']);
         //context.fillRect(p['x']*w/100, p['y']*y/100, 5, 5);
-      //  context.fillRect(p['x']*w/100, p['y']*h/100, 2, 2);
+        */
+       //context.fillRect(p['x']*w/100, p['y']*h/100, 2, 2);
     }
     //$('#canvas').css("max-width",'200px');
     //$('#canvas').css("max-height",'200px');
-    //$("#canvas").show();
+   // $("#canvas").show();
 
 }
 
