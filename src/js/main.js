@@ -263,6 +263,7 @@ function getRes(data){
 }
 
 function showPoints(points){
+    $('#canvas_mask').html('');
     $(".camera-area").show();
     $('#mask').show();
 
